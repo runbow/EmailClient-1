@@ -48,6 +48,7 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.TLabNum = new System.Windows.Forms.ToolStripStatusLabel();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.CMStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmailInfo)).BeginInit();
             this.MStrip.SuspendLayout();
@@ -246,5 +247,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }
