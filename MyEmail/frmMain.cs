@@ -155,20 +155,27 @@ namespace MyEmail
                 {
                     mailMessage = popMail.Messages[e.RowIndex + 1];
                     atts = mailMessage.Attachments;
-                    for (int k = 0; k < atts.Count; k++)
+                    if (atts.Count != 0)
                     {
-                        att = atts[k];
-                        string attname = att.Name;
-                        Directory.CreateDirectory("AttachFiles\\" + user);
-                        string mailPath = "AttachFiles\\" + user + "\\" + ReplaceName (att.Name);
-                        att.SaveToFile(mailPath);                      
+                        for (int k = 0; k < atts.Count; k++)
+                        {
+                            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                            {
+                                att = atts[k];
+                                string attname = att.Name;
+                                //Directory.CreateDirectory("AttachFiles\\" + user);
+                                //string mailPath = "AttachFiles\\" + user + "\\" +att.Name;                               
+                                string mailPath = saveFileDialog.FileName.ToString();
+                                att.SaveToFile(mailPath);
+                                MessageBox.Show("下载成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }                        
                     }
-                    MessageBox.Show("下载成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch
             {
-                MessageBox.Show("下载失败"); 
+                MessageBox.Show("下载失败", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private string ReplaceName(string strName)
@@ -177,6 +184,38 @@ namespace MyEmail
             strNewName = strName.Replace(strName.Substring(0, strName.LastIndexOf(".") + 1), DateTime.Now.ToString("yyyy MMddhhmmss") + ".");
             return strNewName;
         }
-        
+        public static int index;
+        private void dgvEmailInfo_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            index = e.RowIndex;
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                popMail.DeleteSingleMessage(index + 1);
+                popMail.Disconnect();
+                MessageBox .Show ("删除成功","提示",MessageBoxButtons .OK ,MessageBoxIcon.Information );
+                frmMain_Load (sender ,e );
+            }
+            catch
+            {
+                MessageBox.Show ("删除失败","错误",MessageBoxButtons.OK ,MessageBoxIcon.Error );
+            }
+        }
+
+        private void refresh_Click(object sender, EventArgs e)
+        {
+            frmMain_Load(sender, e);
+        }
+
+        private void logoff(object sender, EventArgs e)
+        {
+            popMail.Disconnect();
+            this.Hide();
+            login Login = new login();
+            Login.Show();
+        }               
     }
 }

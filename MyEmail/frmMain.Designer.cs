@@ -41,7 +41,7 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.refresh = new System.Windows.Forms.ToolStripMenuItem();
             this.SStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.TLabUser = new System.Windows.Forms.ToolStripStatusLabel();
@@ -67,6 +67,7 @@
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.Size = new System.Drawing.Size(98, 22);
             this.toolStripMenuItem5.Text = "删除";
+            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
             // dgvEmailInfo
             // 
@@ -88,6 +89,7 @@
             this.dgvEmailInfo.TabIndex = 1;
             this.dgvEmailInfo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmailInfo_CellClick);
             this.dgvEmailInfo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmailInfo_CellDoubleClick);
+            this.dgvEmailInfo.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvEmailInfo_CellMouseClick);
             // 
             // 发件人
             // 
@@ -128,7 +130,7 @@
             this.toolStripMenuItem1,
             this.toolStripMenuItem2,
             this.toolStripMenuItem3,
-            this.toolStripMenuItem4});
+            this.refresh});
             this.MStrip.Location = new System.Drawing.Point(0, 0);
             this.MStrip.Name = "MStrip";
             this.MStrip.Size = new System.Drawing.Size(765, 24);
@@ -154,12 +156,14 @@
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(43, 20);
             this.toolStripMenuItem3.Text = "注销";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.logoff);
             // 
-            // toolStripMenuItem4
+            // refresh
             // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(135, 20);
-            this.toolStripMenuItem4.Text = "toolStripMenuItem4";
+            this.refresh.Name = "refresh";
+            this.refresh.Size = new System.Drawing.Size(43, 20);
+            this.refresh.Text = "刷新";
+            this.refresh.Click += new System.EventHandler(this.refresh_Click);
             // 
             // SStrip
             // 
@@ -236,7 +240,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem refresh;
         private System.Windows.Forms.StatusStrip SStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel TLabUser;
