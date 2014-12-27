@@ -187,7 +187,7 @@
             // 
             // openFileDialog
             // 
-            this.openFileDialog.FileName = "openFileDialog1";
+            this.openFileDialog.Title = "添加附件";
             // 
             // sendmail
             // 

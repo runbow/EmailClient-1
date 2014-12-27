@@ -86,6 +86,7 @@
             this.dgvEmailInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvEmailInfo.Size = new System.Drawing.Size(765, 353);
             this.dgvEmailInfo.TabIndex = 1;
+            this.dgvEmailInfo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmailInfo_CellClick);
             this.dgvEmailInfo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmailInfo_CellDoubleClick);
             // 
             // 发件人

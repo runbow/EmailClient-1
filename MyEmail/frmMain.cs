@@ -146,6 +146,37 @@ namespace MyEmail
             sendmail send = new sendmail();
             send.Show();
         }
+
+        private void dgvEmailInfo_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (e.ColumnIndex == 3)
+                {
+                    mailMessage = popMail.Messages[e.RowIndex + 1];
+                    atts = mailMessage.Attachments;
+                    for (int k = 0; k < atts.Count; k++)
+                    {
+                        att = atts[k];
+                        string attname = att.Name;
+                        Directory.CreateDirectory("AttachFiles\\" + user);
+                        string mailPath = "AttachFiles\\" + user + "\\" + ReplaceName (att.Name);
+                        att.SaveToFile(mailPath);                      
+                    }
+                    MessageBox.Show("下载成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("下载失败"); 
+            }
+        }
+        private string ReplaceName(string strName)
+        {
+            string strNewName = "";
+            strNewName = strName.Replace(strName.Substring(0, strName.LastIndexOf(".") + 1), DateTime.Now.ToString("yyyy MMddhhmmss") + ".");
+            return strNewName;
+        }
         
     }
 }
