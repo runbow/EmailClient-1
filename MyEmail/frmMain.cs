@@ -36,10 +36,11 @@ namespace MyEmail
         public static string strBody;
         public static string strDate;
         public static string strAttachment;
+        public static string[] htmlbody;
+        public static string strhtmlbody;
         public frmMain()
         {
-            InitializeComponent();
-            
+            InitializeComponent();                      
         }
         
        
@@ -51,9 +52,9 @@ namespace MyEmail
             {
                 dgvEmailInfo.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-            strsever ="pop.163.com";//login.Pop;
-            user ="dupeng1160058696@163.com";//login.User ;
-            pwd ="HbMcSb2065141DP";//login .Password ;
+            strsever ="pop.qq.com";//login.Pop;
+            user ="dupeng1160058696@qq.com";//login.User ;
+            pwd ="hust2012--DP";//login .Password ;
             popMail = new jmail.POP3Class();
             try
             {
@@ -71,7 +72,7 @@ namespace MyEmail
                             for (int i = 1; i < popMail.Count+1; i++)
                             {
                                 mailMessage = popMail.Messages[i];
-                                transCode(ref MailSubject,  mailMessage);
+                                transCode1(ref MailSubject,  mailMessage);
                                 mailMessage.Charset = "GB2312";
                                 mailMessage.Encoding = "Base64";
                                 mailMessage.ISOEncodeHeaders = false;
@@ -79,6 +80,7 @@ namespace MyEmail
                                 dgvEmailInfo.Rows[i - 1].Cells[0].Value = mailMessage.From;                               
                                 dgvEmailInfo.Rows[i - 1].Cells[1].Value = MailSubject ;
                                 dgvEmailInfo.Rows[i - 1].Cells[2].Value = mailMessage.Body;
+                                //htmlbody[i-1] = mailMessage.HTMLBody;
                                 dgvEmailInfo.Rows[i - 1].Cells[4].Value = mailMessage.Date;
                                 if ((popMail.Count >= 1) && (i <= popMail.Count))
                                 {
@@ -112,6 +114,7 @@ namespace MyEmail
 
         private void dgvEmailInfo_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            string[] MailAtts=new string[]{};
             strFrom = strSubject = strBody = strDate = strAttachment = string.Empty;
             strFrom = dgvEmailInfo.Rows[e.RowIndex].Cells[0].Value.ToString();
             if (dgvEmailInfo.Rows[e.RowIndex].Cells[1].Value == null)
@@ -121,21 +124,31 @@ namespace MyEmail
             else
             {
                 strSubject = dgvEmailInfo.Rows[e.RowIndex].Cells[1].Value.ToString();
-            }         
-            strBody = dgvEmailInfo.Rows[e.RowIndex].Cells[2].Value.ToString ();
+            }
+
+            if (dgvEmailInfo.Rows[e.RowIndex].Cells[2].Value == null)
+            {
+                strBody = null;
+            }
+            else
+            {
+                strBody = dgvEmailInfo.Rows[e.RowIndex].Cells[2].Value.ToString();
+            }
+            //strhtmlbody = htmlbody[e.RowIndex];
             strDate = dgvEmailInfo.Rows[e.RowIndex].Cells[4].Value.ToString();
             mailMessage = popMail.Messages[e.RowIndex + 1];
             atts = mailMessage.Attachments;
+            transCode2(ref MailAtts, mailMessage);
             for (int k = 0; k < atts.Count; k++)
             {
-                att = atts[k];
+                //att = atts[k];
                 if (strAttachment == string.Empty)
                 {
-                    strAttachment =(att.Name);
+                    strAttachment = MailAtts[k];//(att.Name);
                 }
                 else
                 {
-                    strAttachment += ";" + (att.Name);
+                    strAttachment += ";" + MailAtts [k];//(att.Name);
                 }
             }
             frmEmailInfo frmemailinfo = new frmEmailInfo();
@@ -160,10 +173,11 @@ namespace MyEmail
                     {
                         for (int k = 0; k < atts.Count; k++)
                         {
+                            att = atts[k];
+                            string attname = att.Name;
+                            saveFileDialog.FileName = attname;
                             if (saveFileDialog.ShowDialog() == DialogResult.OK)
                             {
-                                att = atts[k];
-                                string attname = att.Name;
                                 //Directory.CreateDirectory("AttachFiles\\" + user);
                                 //string mailPath = "AttachFiles\\" + user + "\\" +att.Name;                               
                                 string mailPath = saveFileDialog.FileName.ToString();
@@ -225,7 +239,7 @@ namespace MyEmail
             currentTime.Text=DateTime.Now.ToString("HH:mm:ss");          
         }
 
-        private void transCode(ref string MailSubject,jmail.Message mailmessage)
+        private void transCode1(ref string MailSubject,jmail.Message mailmessage)
         {
             byte[] b;
             string transcode;
@@ -293,6 +307,62 @@ namespace MyEmail
             {
                 MessageBox.Show("编码格式有问题");
             }
+        }
+
+
+        private void transCode2(ref string[] MailAtts, jmail.Message mailmessage)
+        {
+            byte[] b;
+            string transcode;
+            jmail.Attachments attachments;
+            jmail.Attachment attachment;
+            attachments=mailmessage .Attachments;
+            for(int i=0;i<attachments .Count ;i++)
+            {   
+                try
+                {       
+                    attachment =attachments [i];
+                if (mailmessage.Text.IndexOf("name:=?UTF-8?B?") != -1 ||
+                    mailmessage.Text.IndexOf("name: =?UTF-8?B?") != -1 ||
+                     mailmessage.Text.IndexOf("name: =?utf-8?B?") != -1
+                    )//解析邮件主题
+                  {
+                    if (attachment.Name .IndexOf("=?UTF-8?B?") != -1
+                        )
+                    {
+
+                        transcode = attachment.Name .Substring(attachment.Name.IndexOf("=?UTF-8?B?") + 10);
+                        transcode = transcode.Substring(0, transcode.IndexOf("?="));//修改
+                        b = Convert.FromBase64String(transcode);
+                        transcode = Encoding.GetEncoding("utf-8").GetString(b);
+                        MailAtts[i] = transcode;
+                    }
+                    else if (attachment.Name.IndexOf("=?utf-8?B?") != -1)
+                    {
+                        transcode = attachment.Name.Substring(attachment.Name.IndexOf("=?utf-8?B?") + 10);
+                        transcode = transcode.Substring(0, transcode.Length - 2);
+                        b = Convert.FromBase64String(transcode);
+                        transcode = Encoding.GetEncoding("utf-8").GetString(b);
+                        MailAtts[i] = transcode;
+                    }
+                    else
+                    {
+                        b = System.Text.Encoding.Default.GetBytes(attachment.Name);
+                        transcode = Encoding.GetEncoding("utf-8").GetString(b);
+                        MailAtts[i] = transcode;
+                    }
+                }
+                else
+                {
+                    MailAtts [i] = attachment.Name;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("编码格式有问题");
+            }
+            }
+            
         }
     }
 }

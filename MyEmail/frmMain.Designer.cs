@@ -48,10 +48,10 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.TLabNum = new System.Windows.Forms.ToolStripStatusLabel();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.timer = new System.Windows.Forms.Timer(this.components);
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.currentTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.CMStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmailInfo)).BeginInit();
             this.MStrip.SuspendLayout();
@@ -74,6 +74,8 @@
             // 
             // dgvEmailInfo
             // 
+            this.dgvEmailInfo.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dgvEmailInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvEmailInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEmailInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.发件人,
@@ -83,6 +85,7 @@
             this.Column4});
             this.dgvEmailInfo.ContextMenuStrip = this.CMStrip;
             this.dgvEmailInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvEmailInfo.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dgvEmailInfo.Location = new System.Drawing.Point(0, 24);
             this.dgvEmailInfo.Name = "dgvEmailInfo";
             this.dgvEmailInfo.ReadOnly = true;
@@ -212,12 +215,6 @@
             this.TLabNum.Name = "TLabNum";
             this.TLabNum.Size = new System.Drawing.Size(0, 17);
             // 
-            // timer
-            // 
-            this.timer.Enabled = true;
-            this.timer.Interval = 1000;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
@@ -229,6 +226,12 @@
             // 
             this.currentTime.Name = "currentTime";
             this.currentTime.Size = new System.Drawing.Size(0, 17);
+            // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Interval = 1000;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // frmMain
             // 

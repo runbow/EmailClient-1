@@ -15,6 +15,7 @@ namespace MyEmail
         public frmEmailInfo()
         {
             InitializeComponent();
+            webBrowser.Navigate("about:blank");
         }
 
         private void frmEmailInfo_Load(object sender, EventArgs e)
@@ -24,6 +25,7 @@ namespace MyEmail
             txtContent.Text = frmMain.strBody;
             txtAttachment.Text = frmMain.strAttachment;
             txtDate.Text = frmMain.strDate;
+            webBrowser.Document.Write("anbvkdnv1521呵呵");
         }
     }
 }

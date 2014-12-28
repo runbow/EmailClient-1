@@ -38,6 +38,7 @@
             this.txtContent = new System.Windows.Forms.TextBox();
             this.txtAttachment = new System.Windows.Forms.TextBox();
             this.txtDate = new System.Windows.Forms.TextBox();
+            this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.SuspendLayout();
             // 
             // label1
@@ -122,11 +123,20 @@
             this.txtDate.Size = new System.Drawing.Size(338, 21);
             this.txtDate.TabIndex = 9;
             // 
+            // webBrowser
+            // 
+            this.webBrowser.Location = new System.Drawing.Point(12, 119);
+            this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser.Name = "webBrowser";
+            this.webBrowser.Size = new System.Drawing.Size(112, 77);
+            this.webBrowser.TabIndex = 10;
+            // 
             // frmEmailInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(579, 305);
+            this.Controls.Add(this.webBrowser);
             this.Controls.Add(this.txtDate);
             this.Controls.Add(this.txtAttachment);
             this.Controls.Add(this.txtContent);
@@ -158,5 +168,6 @@
         private System.Windows.Forms.TextBox txtContent;
         private System.Windows.Forms.TextBox txtAttachment;
         private System.Windows.Forms.TextBox txtDate;
+        private System.Windows.Forms.WebBrowser webBrowser;
     }
 }
