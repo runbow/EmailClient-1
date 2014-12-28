@@ -49,6 +49,9 @@
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.TLabNum = new System.Windows.Forms.ToolStripStatusLabel();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.currentTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.CMStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmailInfo)).BeginInit();
             this.MStrip.SuspendLayout();
@@ -60,12 +63,12 @@
             this.CMStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deleteEmail});
             this.CMStrip.Name = "CMStrip";
-            this.CMStrip.Size = new System.Drawing.Size(153, 48);
+            this.CMStrip.Size = new System.Drawing.Size(99, 26);
             // 
             // deleteEmail
             // 
             this.deleteEmail.Name = "deleteEmail";
-            this.deleteEmail.Size = new System.Drawing.Size(152, 22);
+            this.deleteEmail.Size = new System.Drawing.Size(98, 22);
             this.deleteEmail.Text = "删除";
             this.deleteEmail.Click += new System.EventHandler(this.deleteEmail_Click);
             // 
@@ -172,7 +175,9 @@
             this.TLabUser,
             this.toolStripStatusLabel3,
             this.toolStripStatusLabel4,
-            this.TLabNum});
+            this.TLabNum,
+            this.toolStripStatusLabel2,
+            this.currentTime});
             this.SStrip.Location = new System.Drawing.Point(0, 355);
             this.SStrip.Name = "SStrip";
             this.SStrip.Size = new System.Drawing.Size(765, 22);
@@ -206,6 +211,24 @@
             // 
             this.TLabNum.Name = "TLabNum";
             this.TLabNum.Size = new System.Drawing.Size(0, 17);
+            // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Interval = 1000;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(351, 17);
+            this.toolStripStatusLabel2.Text = "                                                                                时" +
+    "间";
+            // 
+            // currentTime
+            // 
+            this.currentTime.Name = "currentTime";
+            this.currentTime.Size = new System.Drawing.Size(0, 17);
             // 
             // frmMain
             // 
@@ -253,5 +276,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel currentTime;
     }
 }
