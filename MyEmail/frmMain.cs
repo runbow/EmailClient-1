@@ -178,31 +178,11 @@ namespace MyEmail
                 MessageBox.Show("下载失败", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private string ReplaceName(string strName)
-        {
-            string strNewName = "";
-            strNewName = strName.Replace(strName.Substring(0, strName.LastIndexOf(".") + 1), DateTime.Now.ToString("yyyy MMddhhmmss") + ".");
-            return strNewName;
-        }
+    
         public static int index;
         private void dgvEmailInfo_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             index = e.RowIndex;
-        }
-
-        private void toolStripMenuItem5_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                popMail.DeleteSingleMessage(index + 1);
-                popMail.Disconnect();
-                MessageBox .Show ("删除成功","提示",MessageBoxButtons .OK ,MessageBoxIcon.Information );
-                frmMain_Load (sender ,e );
-            }
-            catch
-            {
-                MessageBox.Show ("删除失败","错误",MessageBoxButtons.OK ,MessageBoxIcon.Error );
-            }
         }
 
         private void refresh_Click(object sender, EventArgs e)
@@ -212,10 +192,31 @@ namespace MyEmail
 
         private void logoff(object sender, EventArgs e)
         {
-            popMail.Disconnect();
-            this.Hide();
-            login Login = new login();
-            Login.Show();
+            if (MessageBox.Show("确定退出该账户吗？", "警告", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+            {
+                popMail.Disconnect();
+                this.Hide();
+                login Login = new login();
+                Login.Show();
+            }                                       
+        }
+
+        private void deleteEmail_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("确定删除邮件吗？", "警告", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                {
+                    popMail.DeleteSingleMessage(index + 1);
+                    popMail.Disconnect();
+                    MessageBox.Show("删除成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    frmMain_Load(sender, e);
+                }                
+            }
+            catch
+            {
+                MessageBox.Show("删除失败", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }               
     }
 }

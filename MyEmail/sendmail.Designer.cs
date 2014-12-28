@@ -212,6 +212,7 @@
             this.Controls.Add(this.btnSelect);
             this.MaximizeBox = false;
             this.Name = "sendmail";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "邮件发送";
             this.ResumeLayout(false);
             this.PerformLayout();

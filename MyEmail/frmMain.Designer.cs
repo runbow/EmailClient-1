@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.CMStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteEmail = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvEmailInfo = new System.Windows.Forms.DataGridView();
             this.发件人 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,16 +58,16 @@
             // CMStrip
             // 
             this.CMStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem5});
+            this.deleteEmail});
             this.CMStrip.Name = "CMStrip";
-            this.CMStrip.Size = new System.Drawing.Size(99, 26);
+            this.CMStrip.Size = new System.Drawing.Size(153, 48);
             // 
-            // toolStripMenuItem5
+            // deleteEmail
             // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(98, 22);
-            this.toolStripMenuItem5.Text = "删除";
-            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
+            this.deleteEmail.Name = "deleteEmail";
+            this.deleteEmail.Size = new System.Drawing.Size(152, 22);
+            this.deleteEmail.Text = "删除";
+            this.deleteEmail.Click += new System.EventHandler(this.deleteEmail_Click);
             // 
             // dgvEmailInfo
             // 
@@ -236,7 +236,7 @@
         private System.Windows.Forms.ContextMenuStrip CMStrip;
         private System.Windows.Forms.DataGridView dgvEmailInfo;
         private System.Windows.Forms.MenuStrip MStrip;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem deleteEmail;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
