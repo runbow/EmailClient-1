@@ -35,7 +35,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtFrom = new System.Windows.Forms.TextBox();
             this.txtSubject = new System.Windows.Forms.TextBox();
-            this.txtContent = new System.Windows.Forms.TextBox();
             this.txtAttachment = new System.Windows.Forms.TextBox();
             this.txtDate = new System.Windows.Forms.TextBox();
             this.webBrowser = new System.Windows.Forms.WebBrowser();
@@ -70,6 +69,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(71, 222);
             this.label4.Name = "label4";
@@ -79,6 +79,7 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(71, 252);
             this.label5.Name = "label5";
@@ -88,6 +89,8 @@
             // 
             // txtFrom
             // 
+            this.txtFrom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFrom.Location = new System.Drawing.Point(145, 26);
             this.txtFrom.Name = "txtFrom";
             this.txtFrom.Size = new System.Drawing.Size(237, 21);
@@ -95,22 +98,17 @@
             // 
             // txtSubject
             // 
+            this.txtSubject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSubject.Location = new System.Drawing.Point(145, 63);
             this.txtSubject.Name = "txtSubject";
             this.txtSubject.Size = new System.Drawing.Size(201, 21);
             this.txtSubject.TabIndex = 6;
             // 
-            // txtContent
-            // 
-            this.txtContent.Location = new System.Drawing.Point(145, 90);
-            this.txtContent.Multiline = true;
-            this.txtContent.Name = "txtContent";
-            this.txtContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtContent.Size = new System.Drawing.Size(338, 116);
-            this.txtContent.TabIndex = 7;
-            // 
             // txtAttachment
             // 
+            this.txtAttachment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAttachment.Location = new System.Drawing.Point(145, 213);
             this.txtAttachment.Name = "txtAttachment";
             this.txtAttachment.Size = new System.Drawing.Size(338, 21);
@@ -118,6 +116,8 @@
             // 
             // txtDate
             // 
+            this.txtDate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDate.Location = new System.Drawing.Point(145, 252);
             this.txtDate.Name = "txtDate";
             this.txtDate.Size = new System.Drawing.Size(338, 21);
@@ -125,10 +125,13 @@
             // 
             // webBrowser
             // 
-            this.webBrowser.Location = new System.Drawing.Point(12, 119);
+            this.webBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.webBrowser.Location = new System.Drawing.Point(145, 103);
             this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(112, 77);
+            this.webBrowser.Size = new System.Drawing.Size(338, 104);
             this.webBrowser.TabIndex = 10;
             // 
             // frmEmailInfo
@@ -139,7 +142,6 @@
             this.Controls.Add(this.webBrowser);
             this.Controls.Add(this.txtDate);
             this.Controls.Add(this.txtAttachment);
-            this.Controls.Add(this.txtContent);
             this.Controls.Add(this.txtSubject);
             this.Controls.Add(this.txtFrom);
             this.Controls.Add(this.label5);
@@ -165,7 +167,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtFrom;
         private System.Windows.Forms.TextBox txtSubject;
-        private System.Windows.Forms.TextBox txtContent;
         private System.Windows.Forms.TextBox txtAttachment;
         private System.Windows.Forms.TextBox txtDate;
         private System.Windows.Forms.WebBrowser webBrowser;

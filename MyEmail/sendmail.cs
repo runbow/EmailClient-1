@@ -55,8 +55,7 @@ namespace MyEmail
             message .Body = txtContent .Text ;
             message.SubjectEncoding = System.Text.Encoding.UTF8;
             message.BodyEncoding = System.Text.Encoding.UTF8;
-            message.Priority = System.Net.Mail.MailPriority.High;
-            message.IsBodyHtml = false; 
+            message.Priority = System.Net.Mail.MailPriority.High; 
             if(txtAttachment .Text !="")
             {
                 if (txtAttachment .Text .IndexOf (";")!=-1)

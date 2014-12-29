@@ -16,16 +16,31 @@ namespace MyEmail
         {
             InitializeComponent();
             webBrowser.Navigate("about:blank");
+            mshtml.IHTMLDocument2 doc = this.webBrowser.Document.DomDocument as mshtml.IHTMLDocument2;
+            if (doc != null)
+            {
+                doc.designMode = "on";
+            }
+
         }
 
         private void frmEmailInfo_Load(object sender, EventArgs e)
         {
             txtFrom.Text = frmMain.strFrom;
             txtSubject.Text = frmMain.strSubject;
-            txtContent.Text = frmMain.strBody;
+            //txtContent.Text = frmMain.strBody;
             txtAttachment.Text = frmMain.strAttachment;
             txtDate.Text = frmMain.strDate;
-            webBrowser.Document.Write("anbvkdnv1521呵呵");
+            if (frmMain.mailMessage.HTMLBody == null)
+            {
+                webBrowser.Document.Write(frmMain.mailMessage.Body);
+            }
+            else
+            {
+                webBrowser.Document.Write(frmMain.mailMessage.HTMLBody);
+            }
+            
+            //webBrowser.DocumentText = frmMain.mailMessage.HTMLBody;
         }
     }
 }

@@ -52,9 +52,9 @@ namespace MyEmail
             {
                 dgvEmailInfo.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-            strsever ="pop.qq.com";//login.Pop;
-            user ="dupeng1160058696@qq.com";//login.User ;
-            pwd ="hust2012--DP";//login .Password ;
+            strsever ="pop.163.com";//login.Pop;
+            user ="dupeng1160058696@163.com";//login.User ;
+            pwd ="HbMcSb2065141DP";//login .Password ;
             popMail = new jmail.POP3Class();
             try
             {
@@ -138,17 +138,17 @@ namespace MyEmail
             strDate = dgvEmailInfo.Rows[e.RowIndex].Cells[4].Value.ToString();
             mailMessage = popMail.Messages[e.RowIndex + 1];
             atts = mailMessage.Attachments;
-            transCode2(ref MailAtts, mailMessage);
+            //transCode2(ref MailAtts, mailMessage);
             for (int k = 0; k < atts.Count; k++)
             {
-                //att = atts[k];
+                att = atts[k];
                 if (strAttachment == string.Empty)
                 {
-                    strAttachment = MailAtts[k];//(att.Name);
+                    strAttachment =att.Name;
                 }
                 else
                 {
-                    strAttachment += ";" + MailAtts [k];//(att.Name);
+                    strAttachment += ";" +att.Name;
                 }
             }
             frmEmailInfo frmemailinfo = new frmEmailInfo();
