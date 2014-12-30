@@ -30,7 +30,6 @@
         {
             this.btnSelect = new System.Windows.Forms.Button();
             this.btnSend = new System.Windows.Forms.Button();
-            this.txtContent = new System.Windows.Forms.TextBox();
             this.txtSend = new System.Windows.Forms.TextBox();
             this.txtServer = new System.Windows.Forms.TextBox();
             this.txtSubject = new System.Windows.Forms.TextBox();
@@ -44,11 +43,13 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.btnDeAtt = new System.Windows.Forms.Button();
+            this.webbody = new System.Windows.Forms.WebBrowser();
             this.SuspendLayout();
             // 
             // btnSelect
             // 
-            this.btnSelect.Location = new System.Drawing.Point(481, 246);
+            this.btnSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSelect.Location = new System.Drawing.Point(459, 231);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(75, 23);
             this.btnSelect.TabIndex = 0;
@@ -58,6 +59,7 @@
             // 
             // btnSend
             // 
+            this.btnSend.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnSend.Location = new System.Drawing.Point(245, 290);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(75, 23);
@@ -65,15 +67,6 @@
             this.btnSend.Text = "发送";
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
-            // 
-            // txtContent
-            // 
-            this.txtContent.Location = new System.Drawing.Point(80, 98);
-            this.txtContent.Multiline = true;
-            this.txtContent.Name = "txtContent";
-            this.txtContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtContent.Size = new System.Drawing.Size(344, 107);
-            this.txtContent.TabIndex = 3;
             // 
             // txtSend
             // 
@@ -93,7 +86,7 @@
             // 
             // txtSubject
             // 
-            this.txtSubject.Location = new System.Drawing.Point(80, 57);
+            this.txtSubject.Location = new System.Drawing.Point(80, 48);
             this.txtSubject.Name = "txtSubject";
             this.txtSubject.Size = new System.Drawing.Size(137, 21);
             this.txtSubject.TabIndex = 9;
@@ -135,7 +128,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(45, 66);
+            this.label7.Location = new System.Drawing.Point(45, 57);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(29, 12);
             this.label7.TabIndex = 17;
@@ -152,6 +145,7 @@
             // 
             // label9
             // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(33, 231);
             this.label9.Name = "label9";
@@ -166,6 +160,8 @@
             // 
             // listBox1
             // 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 12;
             this.listBox1.Location = new System.Drawing.Point(80, 231);
@@ -176,7 +172,8 @@
             // 
             // btnDeAtt
             // 
-            this.btnDeAtt.Location = new System.Drawing.Point(481, 275);
+            this.btnDeAtt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeAtt.Location = new System.Drawing.Point(459, 260);
             this.btnDeAtt.Name = "btnDeAtt";
             this.btnDeAtt.Size = new System.Drawing.Size(75, 23);
             this.btnDeAtt.TabIndex = 21;
@@ -184,11 +181,23 @@
             this.btnDeAtt.UseVisualStyleBackColor = true;
             this.btnDeAtt.Click += new System.EventHandler(this.btnDeAtt_Click);
             // 
+            // webbody
+            // 
+            this.webbody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.webbody.Location = new System.Drawing.Point(80, 94);
+            this.webbody.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webbody.Name = "webbody";
+            this.webbody.Size = new System.Drawing.Size(344, 117);
+            this.webbody.TabIndex = 22;
+            // 
             // sendmail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(636, 325);
+            this.Controls.Add(this.webbody);
             this.Controls.Add(this.btnDeAtt);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label9);
@@ -201,10 +210,8 @@
             this.Controls.Add(this.txtSubject);
             this.Controls.Add(this.txtServer);
             this.Controls.Add(this.txtSend);
-            this.Controls.Add(this.txtContent);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.btnSelect);
-            this.MaximizeBox = false;
             this.Name = "sendmail";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "邮件发送";
@@ -217,20 +224,20 @@
 
         private System.Windows.Forms.Button btnSelect;
         private System.Windows.Forms.Button btnSend;
-        private System.Windows.Forms.TextBox txtContent;
-        private System.Windows.Forms.TextBox txtSend;
-        private System.Windows.Forms.TextBox txtServer;
-        private System.Windows.Forms.TextBox txtSubject;
-        private System.Windows.Forms.TextBox txtTo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button btnDeAtt;
+        public System.Windows.Forms.TextBox txtSend;
+        public System.Windows.Forms.TextBox txtServer;
+        public System.Windows.Forms.TextBox txtTo;
+        public System.Windows.Forms.Label label7;
+        public System.Windows.Forms.ListBox listBox1;
+        public System.Windows.Forms.WebBrowser webbody;
+        public System.Windows.Forms.TextBox txtSubject;
     }
 }
 

@@ -16,11 +16,11 @@ namespace MyEmail
         {
             InitializeComponent();
             webBrowser.Navigate("about:blank");
-            mshtml.IHTMLDocument2 doc = this.webBrowser.Document.DomDocument as mshtml.IHTMLDocument2;
+            /*mshtml.IHTMLDocument2 doc = this.webBrowser.Document.DomDocument as mshtml.IHTMLDocument2;
             if (doc != null)
             {
                 doc.designMode = "on";
-            }
+            }*/
 
         }
 
@@ -41,6 +41,29 @@ namespace MyEmail
             }
             
             //webBrowser.DocumentText = frmMain.mailMessage.HTMLBody;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            sendmail remail = new sendmail();
+            remail.Text = "Re:" + txtSubject.Text + " - 写邮件";
+            remail.txtTo.Text  = txtFrom.Text;
+            remail.txtSubject.Text  = "Re:"+txtSubject.Text;
+            if (frmMain.mailMessage.HTMLBody == null)
+            {
+                remail.webbody.Document.Write("<br><br><br>---------原始邮件---------<br>发件人：" + txtFrom.Text + "<br>发送时间：" + txtDate.Text + "<br>收件人：" + login.User + "<br>主题：" + txtSubject.Text + "<br>--------------------------" + "<br>" + frmMain.mailMessage.Body);
+            }
+            else
+            {
+                remail.webbody.Document.Write("<br><br><br>---------原始邮件---------<br>发件人：" + txtFrom.Text + "<br>发送时间：" + txtDate.Text + "<br>收件人：" + login.User + "<br>主题：" + txtSubject.Text + "<br>--------------------------" + frmMain.mailMessage.HTMLBody);
+            }
+            remail.Show();            
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            sendmail resend = new sendmail();
+
         }
     }
 }

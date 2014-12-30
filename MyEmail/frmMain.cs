@@ -97,6 +97,7 @@ namespace MyEmail
                                     }
 
                                 }
+                                dgvEmailInfo.Rows[0].Selected = false;
                             }
                         }
                     }
@@ -365,6 +366,43 @@ namespace MyEmail
             }
             }
             
+        }
+
+        private void search_Click(object sender, EventArgs e)
+        {
+            
+            int row = dgvEmailInfo.Rows.Count;//得到总行数 
+            int cell = dgvEmailInfo.Rows[0].Cells.Count;//得到总列数
+            int i, j;
+            for (i = 0; i < row; i++)
+            {
+                dgvEmailInfo.Rows[i].Selected = false;
+            }
+            for (i = 0; i < row; i++)//得到总行数并在之内循环 
+              {
+                  if (popMail.Messages[i + 1].Body != null)
+                  {
+                      if (popMail.Messages[i + 1].Body.IndexOf(searchmail.Text) != -1)
+                      {
+                          dgvEmailInfo.Rows[i].Selected = true;
+                      }
+                  }                 
+                  for ( j = 0; j < cell; j++)//得到总列数并在之内循环 
+                  {
+                        //精确查找定位
+                     if (dgvEmailInfo.Rows[i].Cells[j].Value != null)
+                     {
+                         if (dgvEmailInfo.Rows[i].Cells[j].Value.ToString().IndexOf(searchmail.Text) != -1)
+                         {
+                                //对比TexBox中的值是否与dataGridView中的值相同（上面这句） 
+                                //dgvEmailInfo.CurrentCell = dgvEmailInfo[j,i];//定位到相同的单元格 
+                              dgvEmailInfo.Rows[i].Selected = true;//定位到行 
+                              break;
+                          }
+                      }
+
+                   }
+               }
         }
     }
 }

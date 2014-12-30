@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.CMStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteEmail = new System.Windows.Forms.ToolStripMenuItem();
-            this.dgvEmailInfo = new System.Windows.Forms.DataGridView();
             this.MStrip = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,14 +46,17 @@
             this.currentTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.发件人 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.发件人 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvEmailInfo = new System.Windows.Forms.DataGridView();
+            this.search = new System.Windows.Forms.Button();
+            this.searchmail = new System.Windows.Forms.TextBox();
             this.CMStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEmailInfo)).BeginInit();
             this.MStrip.SuspendLayout();
             this.SStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmailInfo)).BeginInit();
             this.SuspendLayout();
             // 
             // CMStrip
@@ -70,30 +72,6 @@
             this.deleteEmail.Size = new System.Drawing.Size(98, 22);
             this.deleteEmail.Text = "删除";
             this.deleteEmail.Click += new System.EventHandler(this.deleteEmail_Click);
-            // 
-            // dgvEmailInfo
-            // 
-            this.dgvEmailInfo.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dgvEmailInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dgvEmailInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEmailInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.发件人,
-            this.Column1,
-            this.Column3,
-            this.Column4});
-            this.dgvEmailInfo.ContextMenuStrip = this.CMStrip;
-            this.dgvEmailInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvEmailInfo.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dgvEmailInfo.Location = new System.Drawing.Point(0, 24);
-            this.dgvEmailInfo.Name = "dgvEmailInfo";
-            this.dgvEmailInfo.ReadOnly = true;
-            this.dgvEmailInfo.RowTemplate.Height = 23;
-            this.dgvEmailInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEmailInfo.Size = new System.Drawing.Size(765, 353);
-            this.dgvEmailInfo.TabIndex = 1;
-            this.dgvEmailInfo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmailInfo_CellClick);
-            this.dgvEmailInfo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmailInfo_CellDoubleClick);
-            this.dgvEmailInfo.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvEmailInfo_CellMouseClick);
             // 
             // MStrip
             // 
@@ -196,26 +174,7 @@
             // 
             this.timer.Enabled = true;
             this.timer.Interval = 1000;
-            // 
-            // 发件人
-            // 
-            this.发件人.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.发件人.HeaderText = "发件人";
-            this.发件人.Name = "发件人";
-            this.发件人.ReadOnly = true;
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column1.HeaderText = "主题";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "附件";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // Column4
             // 
@@ -225,11 +184,76 @@
             this.Column4.ReadOnly = true;
             this.Column4.Width = 200;
             // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "附件";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column1.HeaderText = "主题";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // 发件人
+            // 
+            this.发件人.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.发件人.HeaderText = "发件人";
+            this.发件人.Name = "发件人";
+            this.发件人.ReadOnly = true;
+            // 
+            // dgvEmailInfo
+            // 
+            this.dgvEmailInfo.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dgvEmailInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgvEmailInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEmailInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.发件人,
+            this.Column1,
+            this.Column3,
+            this.Column4});
+            this.dgvEmailInfo.ContextMenuStrip = this.CMStrip;
+            this.dgvEmailInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvEmailInfo.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dgvEmailInfo.Location = new System.Drawing.Point(0, 24);
+            this.dgvEmailInfo.Name = "dgvEmailInfo";
+            this.dgvEmailInfo.ReadOnly = true;
+            this.dgvEmailInfo.RowTemplate.Height = 23;
+            this.dgvEmailInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvEmailInfo.Size = new System.Drawing.Size(765, 353);
+            this.dgvEmailInfo.TabIndex = 1;
+            this.dgvEmailInfo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmailInfo_CellClick);
+            this.dgvEmailInfo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmailInfo_CellDoubleClick);
+            this.dgvEmailInfo.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvEmailInfo_CellMouseClick);
+            // 
+            // search
+            // 
+            this.search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.search.Location = new System.Drawing.Point(625, 0);
+            this.search.Name = "search";
+            this.search.Size = new System.Drawing.Size(75, 23);
+            this.search.TabIndex = 4;
+            this.search.Text = "搜索邮件";
+            this.search.UseVisualStyleBackColor = true;
+            this.search.Click += new System.EventHandler(this.search_Click);
+            // 
+            // searchmail
+            // 
+            this.searchmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchmail.Location = new System.Drawing.Point(519, 2);
+            this.searchmail.Name = "searchmail";
+            this.searchmail.Size = new System.Drawing.Size(100, 21);
+            this.searchmail.TabIndex = 5;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(765, 377);
+            this.Controls.Add(this.searchmail);
+            this.Controls.Add(this.search);
             this.Controls.Add(this.SStrip);
             this.Controls.Add(this.dgvEmailInfo);
             this.Controls.Add(this.MStrip);
@@ -239,11 +263,11 @@
             this.Text = "邮件管理";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.CMStrip.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEmailInfo)).EndInit();
             this.MStrip.ResumeLayout(false);
             this.MStrip.PerformLayout();
             this.SStrip.ResumeLayout(false);
             this.SStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmailInfo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -252,7 +276,6 @@
         #endregion
 
         private System.Windows.Forms.ContextMenuStrip CMStrip;
-        private System.Windows.Forms.DataGridView dgvEmailInfo;
         private System.Windows.Forms.MenuStrip MStrip;
         private System.Windows.Forms.ToolStripMenuItem deleteEmail;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
@@ -269,9 +292,12 @@
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel currentTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 发件人;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 发件人;
+        private System.Windows.Forms.DataGridView dgvEmailInfo;
+        private System.Windows.Forms.Button search;
+        private System.Windows.Forms.TextBox searchmail;
     }
 }

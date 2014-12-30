@@ -20,6 +20,12 @@ namespace MyEmail
             InitializeComponent();
             txtSend.Text = login.User;//frmMain.user;// //  ;
             txtServer.Text = login.Smtp;// frmMain.smtpserver;// ; 
+            webbody.Navigate("about:blank");
+            mshtml.IHTMLDocument2 doc = this.webbody.Document.DomDocument as mshtml.IHTMLDocument2;
+            if (doc != null)
+            {
+                doc.designMode = "on";
+            }
         }
         private void btnSend_Click(object sender, EventArgs e)
         {
@@ -52,10 +58,11 @@ namespace MyEmail
         private void SendEmail(MailMessage message)
         {
             message .Subject = txtSubject .Text ;
-            message .Body = txtContent .Text ;
+            message.Body = webbody.DocumentText; //txtContent .Text ;
             message.SubjectEncoding = System.Text.Encoding.UTF8;
             message.BodyEncoding = System.Text.Encoding.UTF8;
-            message.Priority = System.Net.Mail.MailPriority.High; 
+            message.Priority = System.Net.Mail.MailPriority.High;
+            message.IsBodyHtml = true;
             /*if(txtAttachment .Text !="")
             {
                 if (txtAttachment .Text .IndexOf (";")!=-1)
