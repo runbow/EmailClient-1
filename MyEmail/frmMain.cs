@@ -79,19 +79,19 @@ namespace MyEmail
                                 string priority = mailMessage.Priority.ToString();
                                 dgvEmailInfo.Rows[i - 1].Cells[0].Value = mailMessage.From;                               
                                 dgvEmailInfo.Rows[i - 1].Cells[1].Value = MailSubject ;
-                                dgvEmailInfo.Rows[i - 1].Cells[2].Value = mailMessage.Body;
+                                //dgvEmailInfo.Rows[i - 1].Cells[2].Value = mailMessage.Body;
                                 //htmlbody[i-1] = mailMessage.HTMLBody;
-                                dgvEmailInfo.Rows[i - 1].Cells[4].Value = mailMessage.Date;
+                                dgvEmailInfo.Rows[i - 1].Cells[3].Value = mailMessage.Date;
                                 if ((popMail.Count >= 1) && (i <= popMail.Count))
                                 {
                                     atts = mailMessage.Attachments;
                                     if (atts.Count > 0)
                                     {
-                                        dgvEmailInfo.Rows[i - 1].Cells[3].Value = "附件下载";
+                                        dgvEmailInfo.Rows[i - 1].Cells[2].Value = "附件下载";
                                     }
                                     else
                                     {
-                                        dgvEmailInfo.Rows[i - 1].Cells[3].Value = "无附件";
+                                        dgvEmailInfo.Rows[i - 1].Cells[2].Value = "无附件";
                                     }
 
                                 }
@@ -114,8 +114,8 @@ namespace MyEmail
 
         private void dgvEmailInfo_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            string[] MailAtts=new string[]{};
-            strFrom = strSubject = strBody = strDate = strAttachment = string.Empty;
+            //string[] MailAtts=new string[]{};
+            strFrom = strSubject = strDate = strAttachment = string.Empty;
             strFrom = dgvEmailInfo.Rows[e.RowIndex].Cells[0].Value.ToString();
             if (dgvEmailInfo.Rows[e.RowIndex].Cells[1].Value == null)
             {
@@ -126,16 +126,16 @@ namespace MyEmail
                 strSubject = dgvEmailInfo.Rows[e.RowIndex].Cells[1].Value.ToString();
             }
 
-            if (dgvEmailInfo.Rows[e.RowIndex].Cells[2].Value == null)
+           /* if (dgvEmailInfo.Rows[e.RowIndex].Cells[2].Value == null)
             {
                 strBody = null;
             }
             else
             {
                 strBody = dgvEmailInfo.Rows[e.RowIndex].Cells[2].Value.ToString();
-            }
+            }*/
             //strhtmlbody = htmlbody[e.RowIndex];
-            strDate = dgvEmailInfo.Rows[e.RowIndex].Cells[4].Value.ToString();
+            strDate = dgvEmailInfo.Rows[e.RowIndex].Cells[3].Value.ToString();
             mailMessage = popMail.Messages[e.RowIndex + 1];
             atts = mailMessage.Attachments;
             //transCode2(ref MailAtts, mailMessage);
@@ -165,7 +165,7 @@ namespace MyEmail
         {
             try
             {
-                if (e.ColumnIndex == 3)
+                if (e.ColumnIndex ==2)
                 {
                     mailMessage = popMail.Messages[e.RowIndex + 1];
                     atts = mailMessage.Attachments;
