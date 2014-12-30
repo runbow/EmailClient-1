@@ -18,8 +18,8 @@ namespace MyEmail
         public sendmail()
         {
             InitializeComponent();
-            txtSend.Text = login.User;
-            txtServer.Text = login.Smtp;
+            txtSend.Text = login.User;//frmMain.user;// //  ;
+            txtServer.Text = login.Smtp;// frmMain.smtpserver;// ; 
         }
         private void btnSend_Click(object sender, EventArgs e)
         {
@@ -56,7 +56,7 @@ namespace MyEmail
             message.SubjectEncoding = System.Text.Encoding.UTF8;
             message.BodyEncoding = System.Text.Encoding.UTF8;
             message.Priority = System.Net.Mail.MailPriority.High; 
-            if(txtAttachment .Text !="")
+            /*if(txtAttachment .Text !="")
             {
                 if (txtAttachment .Text .IndexOf (";")!=-1)
                 {
@@ -70,6 +70,13 @@ namespace MyEmail
                 {
                     AddFile(txtAttachment .Text ,message );
                 }
+            }*/
+            if (listBox1.Items.Count > 0)
+            {
+                for (int i = 0; i < listBox1.Items.Count; i++)
+                {
+                    AddFile(listBox1.Items[i].ToString(),message);
+                }
             }
             SmtpClient client=new SmtpClient (txtServer .Text ,25);
             client .Credentials =new System.Net .NetworkCredential (txtSend .Text  ,login .Password  );
@@ -77,17 +84,21 @@ namespace MyEmail
         }
 
         private void btnSelect_Click(object sender, EventArgs e)
-        {
+        {        
             openFileDialog.Title = "添加附件";
             if (openFileDialog .ShowDialog ()==DialogResult .OK )//用户进行了选择，即点击了打开按钮
             {
-                if (txtAttachment .Text =="")
+                /*if (txtAttachment .Text =="")
                 {
                     txtAttachment .Text =openFileDialog .FileName ;
                 }
                 else 
                 {
                     txtAttachment .Text +=";"+openFileDialog .FileName ;
+                }*/
+                if (openFileDialog .FileNames !=null)//将选择的文件路径写入listbox中
+                {
+                    listBox1.Items.AddRange(openFileDialog .FileNames );
                 }
             }
         }
@@ -99,6 +110,15 @@ namespace MyEmail
             disposition .ModificationDate =System .IO.File.GetLastWriteTime (strFile );
             disposition .ReadDate =System .IO .File .GetLastAccessTime (strFile );
             message.Attachments .Add (myAttachment );
+        }
+
+        private void btnDeAtt_Click(object sender, EventArgs e)
+        {
+            for (int i = listBox1.SelectedItems.Count - 1; i > -1; i--)
+            {
+                listBox1.Items.Remove(listBox1.SelectedItems[i]);
+            }
+
         }       
     }
 }

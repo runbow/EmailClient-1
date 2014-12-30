@@ -112,9 +112,11 @@ namespace MyEmail
                     MessageBox.Show("密码错误.");
                     return;
                 }
-                sendmail Sendmail = new sendmail();
+                //sendmail Sendmail = new sendmail();
+                frmMain frm = new frmMain();
                 this.Hide();
-                Sendmail .Show();
+                frm.Show();
+                //Sendmail .Show();
 
             }
         }

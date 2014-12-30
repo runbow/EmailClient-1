@@ -30,21 +30,20 @@
         {
             this.btnSelect = new System.Windows.Forms.Button();
             this.btnSend = new System.Windows.Forms.Button();
-            this.txtAttachment = new System.Windows.Forms.TextBox();
             this.txtContent = new System.Windows.Forms.TextBox();
-            this.txtName = new System.Windows.Forms.TextBox();
             this.txtSend = new System.Windows.Forms.TextBox();
             this.txtServer = new System.Windows.Forms.TextBox();
             this.txtSubject = new System.Windows.Forms.TextBox();
             this.txtTo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.btnDeAtt = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnSelect
@@ -59,7 +58,7 @@
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(246, 289);
+            this.btnSend.Location = new System.Drawing.Point(245, 290);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(75, 23);
             this.btnSend.TabIndex = 1;
@@ -67,30 +66,14 @@
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
-            // txtAttachment
-            // 
-            this.txtAttachment.Location = new System.Drawing.Point(137, 246);
-            this.txtAttachment.Multiline = true;
-            this.txtAttachment.Name = "txtAttachment";
-            this.txtAttachment.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtAttachment.Size = new System.Drawing.Size(313, 21);
-            this.txtAttachment.TabIndex = 2;
-            // 
             // txtContent
             // 
-            this.txtContent.Location = new System.Drawing.Point(137, 133);
+            this.txtContent.Location = new System.Drawing.Point(80, 98);
             this.txtContent.Multiline = true;
             this.txtContent.Name = "txtContent";
             this.txtContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtContent.Size = new System.Drawing.Size(313, 107);
+            this.txtContent.Size = new System.Drawing.Size(344, 107);
             this.txtContent.TabIndex = 3;
-            // 
-            // txtName
-            // 
-            this.txtName.Location = new System.Drawing.Point(80, 35);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(159, 21);
-            this.txtName.TabIndex = 4;
             // 
             // txtSend
             // 
@@ -102,7 +85,7 @@
             // 
             // txtServer
             // 
-            this.txtServer.Location = new System.Drawing.Point(82, 65);
+            this.txtServer.Location = new System.Drawing.Point(399, 48);
             this.txtServer.Name = "txtServer";
             this.txtServer.ReadOnly = true;
             this.txtServer.Size = new System.Drawing.Size(157, 21);
@@ -110,7 +93,7 @@
             // 
             // txtSubject
             // 
-            this.txtSubject.Location = new System.Drawing.Point(83, 96);
+            this.txtSubject.Location = new System.Drawing.Point(80, 57);
             this.txtSubject.Name = "txtSubject";
             this.txtSubject.Size = new System.Drawing.Size(137, 21);
             this.txtSubject.TabIndex = 9;
@@ -140,19 +123,10 @@
             this.label2.TabIndex = 12;
             this.label2.Text = "收件人";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 38);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 12);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "发件人名称";
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(35, 74);
+            this.label6.Location = new System.Drawing.Point(351, 57);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 12);
             this.label6.TabIndex = 16;
@@ -161,7 +135,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(48, 105);
+            this.label7.Location = new System.Drawing.Point(45, 66);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(29, 12);
             this.label7.TabIndex = 17;
@@ -170,7 +144,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(50, 133);
+            this.label8.Location = new System.Drawing.Point(21, 98);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(53, 12);
             this.label8.TabIndex = 18;
@@ -179,7 +153,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(78, 251);
+            this.label9.Location = new System.Drawing.Point(33, 231);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(29, 12);
             this.label9.TabIndex = 19;
@@ -187,27 +161,47 @@
             // 
             // openFileDialog
             // 
+            this.openFileDialog.Multiselect = true;
             this.openFileDialog.Title = "添加附件";
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 12;
+            this.listBox1.Location = new System.Drawing.Point(80, 231);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.listBox1.Size = new System.Drawing.Size(344, 52);
+            this.listBox1.TabIndex = 20;
+            // 
+            // btnDeAtt
+            // 
+            this.btnDeAtt.Location = new System.Drawing.Point(481, 275);
+            this.btnDeAtt.Name = "btnDeAtt";
+            this.btnDeAtt.Size = new System.Drawing.Size(75, 23);
+            this.btnDeAtt.TabIndex = 21;
+            this.btnDeAtt.Text = "删除附件";
+            this.btnDeAtt.UseVisualStyleBackColor = true;
+            this.btnDeAtt.Click += new System.EventHandler(this.btnDeAtt_Click);
             // 
             // sendmail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(636, 325);
+            this.Controls.Add(this.btnDeAtt);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtTo);
             this.Controls.Add(this.txtSubject);
             this.Controls.Add(this.txtServer);
             this.Controls.Add(this.txtSend);
-            this.Controls.Add(this.txtName);
             this.Controls.Add(this.txtContent);
-            this.Controls.Add(this.txtAttachment);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.btnSelect);
             this.MaximizeBox = false;
@@ -223,21 +217,20 @@
 
         private System.Windows.Forms.Button btnSelect;
         private System.Windows.Forms.Button btnSend;
-        private System.Windows.Forms.TextBox txtAttachment;
         private System.Windows.Forms.TextBox txtContent;
-        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtSend;
         private System.Windows.Forms.TextBox txtServer;
         private System.Windows.Forms.TextBox txtSubject;
         private System.Windows.Forms.TextBox txtTo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button btnDeAtt;
     }
 }
 

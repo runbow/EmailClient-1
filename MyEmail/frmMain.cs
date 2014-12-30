@@ -29,6 +29,7 @@ namespace MyEmail
         public static jmail.Attachments atts;
         public static jmail.Attachment att;
         public static string strsever;
+        public static string smtpserver;
         public static string user;
         public static string pwd;
         public static string strFrom;
@@ -52,9 +53,10 @@ namespace MyEmail
             {
                 dgvEmailInfo.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-            strsever ="pop.163.com";//login.Pop;
-            user ="dupeng1160058696@163.com";//login.User ;
-            pwd ="HbMcSb2065141DP";//login .Password ;
+            //smtpserver = "smtp.qq.com";
+            strsever = login.Pop; //"pop.qq.com";//
+            user = login.User; //"dupeng1160058696@qq.com";//
+            pwd = login.Password; //"hust2012--DP";//
             popMail = new jmail.POP3Class();
             try
             {
@@ -158,7 +160,7 @@ namespace MyEmail
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             sendmail send = new sendmail();
-            send.Show();
+            send.Show();            
         }
 
         private void dgvEmailInfo_CellClick(object sender, DataGridViewCellEventArgs e)
