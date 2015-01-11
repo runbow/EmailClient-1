@@ -115,7 +115,7 @@ namespace MyEmail
         
         
 
-        private void dgvEmailInfo_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvEmailInfo_CellDoubleClick(object sender, DataGridViewCellEventArgs e)//双击相应单元格得到详细邮件信息
         {
             //string[] MailAtts=new string[]{};
             strFrom = strSubject = strDate = strAttachment = string.Empty;
@@ -158,13 +158,13 @@ namespace MyEmail
             frmemailinfo.ShowDialog();
         }
 
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)//发送邮件
         {
             sendmail send = new sendmail();
             send.Show();            
         }
 
-        private void dgvEmailInfo_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvEmailInfo_CellClick(object sender, DataGridViewCellEventArgs e)//下载附件
         {
             try
             {
@@ -198,17 +198,17 @@ namespace MyEmail
         }
     
         public static int index;
-        private void dgvEmailInfo_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void dgvEmailInfo_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)//得到当前鼠标双击选中的索引
         {
             index = e.RowIndex;
         }
 
-        private void refresh_Click(object sender, EventArgs e)
+        private void refresh_Click(object sender, EventArgs e)//刷新邮箱，重新接收邮件
         {
             frmMain_Load(sender, e);
         }
 
-        private void logoff(object sender, EventArgs e)
+        private void logoff(object sender, EventArgs e)//注销账户，回到登陆界面
         {
             if (MessageBox.Show("确定退出该账户吗？", "警告", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
             {
@@ -219,7 +219,7 @@ namespace MyEmail
             }                                       
         }
 
-        private void deleteEmail_Click(object sender, EventArgs e)
+        private void deleteEmail_Click(object sender, EventArgs e)//删除邮件
         {
             try
             {
@@ -237,12 +237,12 @@ namespace MyEmail
             }
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void timer_Tick(object sender, EventArgs e)//添加显示当前时间工具
         {
             currentTime.Text=DateTime.Now.ToString("HH:mm:ss");          
         }
 
-        private void transCode1(ref string MailSubject,jmail.Message mailmessage)
+        private void transCode1(ref string MailSubject,jmail.Message mailmessage)//对邮件主题的解码
         {
             byte[] b;
             string transcode;
@@ -368,9 +368,8 @@ namespace MyEmail
             
         }
 
-        private void search_Click(object sender, EventArgs e)
+        private void search_Click(object sender, EventArgs e)//解决输入为空仍可查询的问题？？？？？？？？？
         {
-            
             int row = dgvEmailInfo.Rows.Count;//得到总行数 
             int cell = dgvEmailInfo.Rows[0].Cells.Count;//得到总列数
             int i, j;
@@ -378,31 +377,76 @@ namespace MyEmail
             {
                 dgvEmailInfo.Rows[i].Selected = false;
             }
-            for (i = 0; i < row; i++)//得到总行数并在之内循环 
-              {
-                  if (popMail.Messages[i + 1].Body != null)
-                  {
-                      if (popMail.Messages[i + 1].Body.IndexOf(searchmail.Text) != -1)
-                      {
-                          dgvEmailInfo.Rows[i].Selected = true;
-                      }
-                  }                 
-                  for ( j = 0; j < cell; j++)//得到总列数并在之内循环 
-                  {
+            if (searchmail.Text !="")
+            {
+                for (i = 0; i < row; i++)//得到总行数并在之内循环 
+                {
+                    if (popMail.Messages[i + 1].Body != null)
+                    {
+                        if (popMail.Messages[i + 1].Body.IndexOf(searchmail.Text) != -1)
+                        {
+                            dgvEmailInfo.Rows[i].Selected = true;
+                        }
+                    }
+                    for (j = 0; j < cell; j++)//得到总列数并在之内循环 
+                    {
                         //精确查找定位
-                     if (dgvEmailInfo.Rows[i].Cells[j].Value != null)
-                     {
-                         if (dgvEmailInfo.Rows[i].Cells[j].Value.ToString().IndexOf(searchmail.Text) != -1)
-                         {
+                        if (dgvEmailInfo.Rows[i].Cells[j].Value != null)
+                        {
+                            if (dgvEmailInfo.Rows[i].Cells[j].Value.ToString().IndexOf(searchmail.Text) != -1)
+                            {
                                 //对比TexBox中的值是否与dataGridView中的值相同（上面这句） 
                                 //dgvEmailInfo.CurrentCell = dgvEmailInfo[j,i];//定位到相同的单元格 
-                              dgvEmailInfo.Rows[i].Selected = true;//定位到行 
-                              break;
-                          }
-                      }
+                                dgvEmailInfo.Rows[i].Selected = true;//定位到行 
+                                break;
+                            }
+                        }
 
-                   }
-               }
+                    }
+                }
+            }
+           else
+            {
+                for (i = 0; i < row; i++)
+                {
+                    dgvEmailInfo.Rows[i].Selected = false;
+                }
+            }
+        }
+        public static bool bl;
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            /*DialogResult dr = MessageBox.Show("是否退出该应用？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (dr == DialogResult.Yes)        //如果单击“是”按钮
+            {
+
+                Application .Exit() ;                 //关闭窗体
+
+            }
+            else                                           //如果单击“否”按钮
+            {
+
+                e.Cancel = true;                  //不执行操作
+
+            }*/
+            if (bl == false)
+            {
+                if (MessageBox.Show("确定退出应用吗？", "警告", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                {
+                    bl = true;
+                    Application.Exit();
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+            else
+            {
+                Application.Exit();
+            }
+            
         }
     }
 }

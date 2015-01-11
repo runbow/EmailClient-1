@@ -59,7 +59,7 @@ namespace MyEmail
         {
             message .Subject = txtSubject .Text ;
             message.Body = webbody.DocumentText; //txtContent .Text ;
-            message.SubjectEncoding = System.Text.Encoding.UTF8;
+            message.SubjectEncoding = System.Text.Encoding.GetEncoding("gb18030");//System.Text.Encoding.UTF8;
             message.BodyEncoding = System.Text.Encoding.UTF8;
             message.Priority = System.Net.Mail.MailPriority.High;
             message.IsBodyHtml = true;
@@ -112,6 +112,7 @@ namespace MyEmail
         private void AddFile(string strFile,MailMessage message)
         {
             Attachment myAttachment=new Attachment (strFile ,System.Net.Mime .MediaTypeNames .Application .Octet );
+            myAttachment .NameEncoding =System .Text .Encoding .GetEncoding ("gb18030");
             System .Net .Mime .ContentDisposition disposition=myAttachment .ContentDisposition ;
             disposition .CreationDate =System .IO .File .GetCreationTime (strFile );
             disposition .ModificationDate =System .IO.File.GetLastWriteTime (strFile );

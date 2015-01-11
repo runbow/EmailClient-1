@@ -63,7 +63,19 @@ namespace MyEmail
         private void button2_Click(object sender, EventArgs e)
         {
             sendmail resend = new sendmail();
-
+            resend.Text = "Fw:" + txtSubject.Text + " - 写邮件";
+            resend.txtSubject.Text = "Fw:" + txtSubject.Text;
+            if (frmMain.mailMessage.HTMLBody == null)
+            {
+                resend.webbody.Document.Write("<br><br><br>---------原始邮件---------<br>发件人：" + txtFrom.Text + "<br>发送时间：" + txtDate.Text + "<br>收件人：" + login.User + "<br>主题：" + txtSubject.Text + "<br>--------------------------" + "<br>" + frmMain.mailMessage.Body);
+            }
+            else
+            {
+                resend.webbody.Document.Write("<br><br><br>---------原始邮件---------<br>发件人：" + txtFrom.Text + "<br>发送时间：" + txtDate.Text + "<br>收件人：" + login.User + "<br>主题：" + txtSubject.Text + "<br>--------------------------" + frmMain.mailMessage.HTMLBody);
+            }
+            /*string[] attname=frmMain .strAttachment .Split (';');            
+            resend.listBox1.Items.AddRange(attname );*/
+            resend.Show();            
         }
     }
 }
