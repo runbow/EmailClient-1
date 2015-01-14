@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 using System.Net;
 using System.Net.Mail;
-
+using System.Data.OleDb;
 namespace MyEmail
 {
     public partial class sendmail : Form
@@ -49,6 +49,18 @@ namespace MyEmail
                     SendEmail(message);
                 }
                 MessageBox.Show("发送成功！");
+                try
+                {
+                    DBConnect();
+                    sqlCon.Open();
+                    OleDbCommand cmd = new OleDbCommand("insert into send(发件人,收件人,主题,内容,时间) values ('" + txtSend.Text + "','" + txtTo.Text + "','" + txtSubject.Text + "','" + webbody.DocumentText + "','" + DateTime.Now.ToLocalTime().ToString() + "')", sqlCon);
+                    cmd.ExecuteNonQuery();
+                    sqlCon.Close();         
+                }
+                catch
+                {
+                    MessageBox.Show("保存失败", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch 
             {
@@ -127,6 +139,38 @@ namespace MyEmail
                 listBox1.Items.Remove(listBox1.SelectedItems[i]);
             }
 
+        }
+
+        string strCon;
+        OleDbConnection sqlCon;
+        private void DBConnect()
+        {
+            strCon = "Provider = Microsoft.Jet.OLEDB.4.0;Data Source = MyEmail.mdb";
+            sqlCon = new OleDbConnection(strCon);
+        }
+        private void save_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DBConnect();
+                sqlCon.Open();
+                OleDbCommand cmd = new OleDbCommand("insert into draft(发件人,收件人,主题,内容,时间) values ('" + txtSend.Text + "','" + txtTo.Text + "','" + txtSubject.Text + "','" + webbody.DocumentText + "','" + DateTime.Now.ToLocalTime().ToString() + "')", sqlCon);
+                cmd.ExecuteNonQuery();
+                sqlCon.Close();
+                MessageBox.Show("保存成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch
+            {
+                MessageBox.Show("保存失败", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           /* SqlDataAdapter da = new SqlDataAdapter("select * from emailuser", sqlCon);//("select username as 用户名," + "password as 密码,realname as 真实姓名 from emailuser", sqlCon);
+            DataSet ds = new DataSet();
+            da.Fill(ds, "tablename");
+            //dataGridView1.DataSource   = ds.Tables["tablename"];
+            /*listBox1.Items.Add(ds.Tables["tablename"].Rows[1]["password"].ToString());
+            dataGridView1.Rows[0 ].Cells[0].Value = ds.Tables["tablename"].Rows[0]["username"].ToString();
+            dataGridView1.Rows[0].Cells[1].Value = ds.Tables["tablename"].Rows[0]["password"].ToString();
+            dataGridView1.Rows[0].Cells[2].Value = ds.Tables["tablename"].Rows[0]["realname"].ToString();*/
         }       
     }
 }

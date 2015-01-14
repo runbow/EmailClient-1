@@ -44,6 +44,7 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.btnDeAtt = new System.Windows.Forms.Button();
             this.webbody = new System.Windows.Forms.WebBrowser();
+            this.save = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnSelect
@@ -60,7 +61,7 @@
             // btnSend
             // 
             this.btnSend.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnSend.Location = new System.Drawing.Point(245, 290);
+            this.btnSend.Location = new System.Drawing.Point(152, 290);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(75, 23);
             this.btnSend.TabIndex = 1;
@@ -192,11 +193,23 @@
             this.webbody.Size = new System.Drawing.Size(344, 117);
             this.webbody.TabIndex = 22;
             // 
+            // save
+            // 
+            this.save.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.save.Location = new System.Drawing.Point(280, 290);
+            this.save.Name = "save";
+            this.save.Size = new System.Drawing.Size(75, 23);
+            this.save.TabIndex = 23;
+            this.save.Text = "保存";
+            this.save.UseVisualStyleBackColor = true;
+            this.save.Click += new System.EventHandler(this.save_Click);
+            // 
             // sendmail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(636, 325);
+            this.Controls.Add(this.save);
             this.Controls.Add(this.webbody);
             this.Controls.Add(this.btnDeAtt);
             this.Controls.Add(this.listBox1);
@@ -238,6 +251,7 @@
         public System.Windows.Forms.ListBox listBox1;
         public System.Windows.Forms.WebBrowser webbody;
         public System.Windows.Forms.TextBox txtSubject;
+        private System.Windows.Forms.Button save;
     }
 }
 

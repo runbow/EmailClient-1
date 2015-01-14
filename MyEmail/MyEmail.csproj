@@ -48,6 +48,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="addressbook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="addressbook.Designer.cs">
+      <DependentUpon>addressbook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="draft.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="draft.Designer.cs">
+      <DependentUpon>draft.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmEmailInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +86,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="sent.Designer.cs">
+      <DependentUpon>sent.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="addressbook.resx">
+      <DependentUpon>addressbook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="draft.resx">
+      <DependentUpon>draft.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmEmailInfo.resx">
       <DependentUpon>frmEmailInfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -95,6 +119,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="sent.resx">
+      <DependentUpon>sent.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

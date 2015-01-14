@@ -33,6 +33,9 @@
             this.deleteEmail = new System.Windows.Forms.ToolStripMenuItem();
             this.MStrip = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.邮件管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.草稿箱ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.发件箱ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.refresh = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,6 +56,7 @@
             this.dgvEmailInfo = new System.Windows.Forms.DataGridView();
             this.search = new System.Windows.Forms.Button();
             this.searchmail = new System.Windows.Forms.TextBox();
+            this.联系人ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CMStrip.SuspendLayout();
             this.MStrip.SuspendLayout();
             this.SStrip.SuspendLayout();
@@ -77,6 +81,7 @@
             // 
             this.MStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
+            this.邮件管理ToolStripMenuItem,
             this.toolStripMenuItem2,
             this.toolStripMenuItem3,
             this.refresh});
@@ -94,8 +99,33 @@
             this.toolStripMenuItem1.Text = "发送邮件(S)";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
+            // 邮件管理ToolStripMenuItem
+            // 
+            this.邮件管理ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.草稿箱ToolStripMenuItem1,
+            this.发件箱ToolStripMenuItem});
+            this.邮件管理ToolStripMenuItem.Name = "邮件管理ToolStripMenuItem";
+            this.邮件管理ToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.邮件管理ToolStripMenuItem.Text = "邮件管理";
+            // 
+            // 草稿箱ToolStripMenuItem1
+            // 
+            this.草稿箱ToolStripMenuItem1.Name = "草稿箱ToolStripMenuItem1";
+            this.草稿箱ToolStripMenuItem1.Size = new System.Drawing.Size(110, 22);
+            this.草稿箱ToolStripMenuItem1.Text = "草稿箱";
+            this.草稿箱ToolStripMenuItem1.Click += new System.EventHandler(this.草稿箱ToolStripMenuItem1_Click);
+            // 
+            // 发件箱ToolStripMenuItem
+            // 
+            this.发件箱ToolStripMenuItem.Name = "发件箱ToolStripMenuItem";
+            this.发件箱ToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.发件箱ToolStripMenuItem.Text = "发件箱";
+            this.发件箱ToolStripMenuItem.Click += new System.EventHandler(this.发件箱ToolStripMenuItem_Click);
+            // 
             // toolStripMenuItem2
             // 
+            this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.联系人ToolStripMenuItem});
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(67, 20);
             this.toolStripMenuItem2.Text = "用户管理";
@@ -247,6 +277,13 @@
             this.searchmail.Size = new System.Drawing.Size(100, 21);
             this.searchmail.TabIndex = 5;
             // 
+            // 联系人ToolStripMenuItem
+            // 
+            this.联系人ToolStripMenuItem.Name = "联系人ToolStripMenuItem";
+            this.联系人ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.联系人ToolStripMenuItem.Text = "通信簿";
+            this.联系人ToolStripMenuItem.Click += new System.EventHandler(this.联系人ToolStripMenuItem_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -300,5 +337,9 @@
         private System.Windows.Forms.DataGridView dgvEmailInfo;
         private System.Windows.Forms.Button search;
         private System.Windows.Forms.TextBox searchmail;
+        private System.Windows.Forms.ToolStripMenuItem 邮件管理ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 草稿箱ToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem 发件箱ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 联系人ToolStripMenuItem;
     }
 }

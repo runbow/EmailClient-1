@@ -15,7 +15,6 @@ using System.Net.Mime;
 using System.Net.Sockets;
 using System.IO;
 using jmail;
-
 namespace MyEmail
 {
     public partial class frmMain : Form
@@ -75,7 +74,7 @@ namespace MyEmail
                             {
                                 mailMessage = popMail.Messages[i];
                                 transCode1(ref MailSubject,  mailMessage);
-                                mailMessage.Charset = "GB2312";
+                                mailMessage.Charset = "GB18030";
                                 mailMessage.Encoding = "Base64";
                                 mailMessage.ISOEncodeHeaders = false;
                                 string priority = mailMessage.Priority.ToString();
@@ -118,44 +117,52 @@ namespace MyEmail
         private void dgvEmailInfo_CellDoubleClick(object sender, DataGridViewCellEventArgs e)//双击相应单元格得到详细邮件信息
         {
             //string[] MailAtts=new string[]{};
-            strFrom = strSubject = strDate = strAttachment = string.Empty;
-            strFrom = dgvEmailInfo.Rows[e.RowIndex].Cells[0].Value.ToString();
-            if (dgvEmailInfo.Rows[e.RowIndex].Cells[1].Value == null)
+            try
             {
-                strSubject = null;
-            }
-            else
-            {
-                strSubject = dgvEmailInfo.Rows[e.RowIndex].Cells[1].Value.ToString();
-            }
-
-           /* if (dgvEmailInfo.Rows[e.RowIndex].Cells[2].Value == null)
-            {
-                strBody = null;
-            }
-            else
-            {
-                strBody = dgvEmailInfo.Rows[e.RowIndex].Cells[2].Value.ToString();
-            }*/
-            //strhtmlbody = htmlbody[e.RowIndex];
-            strDate = dgvEmailInfo.Rows[e.RowIndex].Cells[3].Value.ToString();
-            mailMessage = popMail.Messages[e.RowIndex + 1];
-            atts = mailMessage.Attachments;
-            //transCode2(ref MailAtts, mailMessage);
-            for (int k = 0; k < atts.Count; k++)
-            {
-                att = atts[k];
-                if (strAttachment == string.Empty)
+                strFrom = strSubject = strDate = strAttachment = string.Empty;
+                strFrom = dgvEmailInfo.Rows[e.RowIndex].Cells[0].Value.ToString();
+                if (dgvEmailInfo.Rows[e.RowIndex].Cells[1].Value == null)
                 {
-                    strAttachment =att.Name;
+                    strSubject = null;
                 }
                 else
                 {
-                    strAttachment += ";" +att.Name;
+                    strSubject = dgvEmailInfo.Rows[e.RowIndex].Cells[1].Value.ToString();
                 }
+
+                /* if (dgvEmailInfo.Rows[e.RowIndex].Cells[2].Value == null)
+                 {
+                     strBody = null;
+                 }
+                 else
+                 {
+                     strBody = dgvEmailInfo.Rows[e.RowIndex].Cells[2].Value.ToString();
+                 }*/
+                //strhtmlbody = htmlbody[e.RowIndex];
+                strDate = dgvEmailInfo.Rows[e.RowIndex].Cells[3].Value.ToString();
+                mailMessage = popMail.Messages[e.RowIndex + 1];
+                atts = mailMessage.Attachments;
+                //transCode2(ref MailAtts, mailMessage);
+                for (int k = 0; k < atts.Count; k++)
+                {
+                    att = atts[k];
+                    if (strAttachment == string.Empty)
+                    {
+                        strAttachment = att.Name;
+                    }
+                    else
+                    {
+                        strAttachment += ";" + att.Name;
+                    }
+                }
+                frmEmailInfo frmemailinfo = new frmEmailInfo();
+                frmemailinfo.ShowDialog();
             }
-            frmEmailInfo frmemailinfo = new frmEmailInfo();
-            frmemailinfo.ShowDialog();
+            catch
+            {
+ 
+            }
+            
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)//发送邮件
@@ -368,7 +375,7 @@ namespace MyEmail
             
         }
 
-        private void search_Click(object sender, EventArgs e)//解决输入为空仍可查询的问题？？？？？？？？？
+        private void search_Click(object sender, EventArgs e)//
         {
             int row = dgvEmailInfo.Rows.Count;//得到总行数 
             int cell = dgvEmailInfo.Rows[0].Cells.Count;//得到总列数
@@ -446,7 +453,42 @@ namespace MyEmail
             {
                 Application.Exit();
             }
-            
+
+        }
+        
+        private void 草稿箱ToolStripMenuItem_Click(object sender, EventArgs e)
+        {                     
+            /*DBConnect();
+           SqlDataAdapter da = new SqlDataAdapter("select 收件人,主题,时间 from draft", sqlCon);//("select username as 用户名," + "password as 密码,realname as 真实姓名 from emailuser", sqlCon);
+            DataSet ds = new DataSet();
+            da.Fill(ds, "tablename");
+            draft dt = new draft();
+            dt.dataGridView1.DataSource   = ds.Tables["tablename"];
+            dt.Show();
+            listBox1.Items.Add(ds.Tables["tablename"].Rows[1]["password"].ToString());
+            dataGridView1.Rows[0 ].Cells[0].Value = ds.Tables["tablename"].Rows[0]["username"].ToString();
+            dataGridView1.Rows[0].Cells[1].Value = ds.Tables["tablename"].Rows[0]["password"].ToString();
+            dataGridView1.Rows[0].Cells[2].Value = ds.Tables["tablename"].Rows[0]["realname"].ToString();*/
+            draft dt = new draft();
+            dt.Show();
+        }
+
+        private void 草稿箱ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            draft dt = new draft();
+            dt.Show();
+        }
+
+        private void 发件箱ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            sent st = new sent();
+            st.Show();
+        }
+
+        private void 联系人ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            addressbook ab = new addressbook();
+            ab.Show();
         }
     }
 }

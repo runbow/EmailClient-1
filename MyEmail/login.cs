@@ -13,7 +13,7 @@ using System.Net.Mail;
 using System.Net.Mime;
 using System.Net.Sockets;
 using System.IO;
-
+using System.Data.OleDb;
 namespace MyEmail
 {
     public partial class login : Form
@@ -26,21 +26,41 @@ namespace MyEmail
         private NetworkStream networkStream;
         private StreamReader streamReader;
         private StreamWriter streamWriter;
+
+        string strCon;
+        OleDbConnection sqlCon;
+        private void DBConnect()
+        {
+            strCon = "Provider = Microsoft.Jet.OLEDB.4.0;Data Source = MyEmail.mdb";
+            sqlCon = new OleDbConnection(strCon);
+        }
         public login()
         {
             InitializeComponent();
+            try
+            {
+                DBConnect();
+                OleDbDataAdapter da = new OleDbDataAdapter("select 用户名 from users", sqlCon);
+                DataSet ds=new DataSet ();
+                da.Fill (ds,"tablename");
+                Username.DisplayMember = "用户名";
+                Username.ValueMember = "用户名";
+                Username.DataSource = ds.Tables[0].DefaultView;
+                
+            }
+            catch
+            {
+ 
+            }
         }
-
+        
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            User = txtUser.Text;
+            User = Username.Text;
             Password = txtPwd.Text;
-           
-
-
-            if ((txtUser.Text == "") | (txtUser.Text.IndexOf("@") == -1) | (txtUser.Text.IndexOf(".com") == -1))
+            if ((Username.Text == "") | (Username.Text.IndexOf("@") == -1) | (Username.Text.IndexOf(".com") == -1))
             {
-                errorProName.SetError(txtUser, "用户名为空或格式不正确！");
+                errorProName.SetError(Username, "用户名为空或格式不正确！");
             }
             else if (txtPwd.Text == "")
             {
@@ -49,7 +69,7 @@ namespace MyEmail
             else
             {
                 errorProName.Clear();
-                string[] i = txtUser.Text.Split('@');
+                string[] i = Username.Text.Split('@');
                 string smtpsever = "smtp." + i[1];
                 string popsever;                             
                 popsever = "pop." + i[1];                             
@@ -95,7 +115,7 @@ namespace MyEmail
 
                 // 向服务器发送用户名，请求确认
 
-                SendToServer("USER " + txtUser.Text);
+                SendToServer("USER " + Username.Text);
                 str = GetResponse();
                 if (CheckResponse(str) == false)
                 {
@@ -116,8 +136,40 @@ namespace MyEmail
                 frmMain frm = new frmMain();
                 this.Hide();
                 frm.Show();
+                string pass;
+                if (checkBox1.Checked == true)
+                {
+                    pass = txtPwd.Text;
+                }
+                else
+                {
+                    pass = "";
+                }
                 //Sendmail .Show();
-
+                try
+                {
+                    DBConnect();
+                    sqlCon.Open();
+                    OleDbDataAdapter da = new OleDbDataAdapter("select 用户名 from users where 用户名='" + Username.Text + "'", sqlCon);
+                    DataSet ds = new DataSet();
+                    da.Fill(ds, "tablename");
+                    if (ds.Tables["tablename"].Rows.Count == 0)
+                    {
+                        OleDbCommand cmd = new OleDbCommand("insert into users(用户名,密码) values('" + Username.Text + "','" + pass + "')", sqlCon);
+                        cmd.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        OleDbCommand cmd = new OleDbCommand("update users set 密码='" + pass + "' where 用户名='" + Username.Text + "'", sqlCon);
+                        cmd.ExecuteNonQuery();
+                    }
+                    //SqlCommand cmd = new SqlCommand("delete from users where 用户名='" + Username.Text + "'", sqlCon);
+                    sqlCon.Close();
+                }
+                catch
+                {
+ 
+                }
             }
         }
         private string GetResponse()
@@ -191,6 +243,30 @@ namespace MyEmail
         {
             Application.Exit();
         }
+
+        private void Username_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            OleDbDataAdapter da2 = new OleDbDataAdapter("select * from users where 用户名='" + Username.Text + "'", sqlCon);
+            DataSet ds2 = new DataSet();
+            da2.Fill(ds2, "tablename1");
+            txtPwd.Text = ds2.Tables["tablename1"].Rows[0]["密码"].ToString();
+            if (txtPwd.Text != "")
+            {
+                checkBox1.Checked = true;
+            }
+            else
+            {
+                checkBox1.Checked = false;
+            }
+        }
+
+       /* private void Username_TextChanged(object sender, EventArgs e)
+        {
+            SqlDataAdapter da2 = new SqlDataAdapter("select 密码 from users where 用户名='"+Username .Text +"'", sqlCon);
+            DataSet ds2 = new DataSet();
+            da2.Fill(ds2, "tablename");
+            txtPwd.Text = ds2.Tables["tablename"].Rows[0].ToString();
+        }*/
 
     }
 }
