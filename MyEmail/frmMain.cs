@@ -23,10 +23,10 @@ namespace MyEmail
         {
             return Encoding.UTF8.GetString(Convert.FromBase64String(str));
         }
-        public static jmail.POP3Class popMail;
-        public static jmail.Message mailMessage;
-        public static jmail.Attachments atts;
-        public static jmail.Attachment att;
+        public static jmail.POP3Class popMail;//定义POP3类
+        public static jmail.Message mailMessage;//定义邮件类
+        public static jmail.Attachments atts;//定义多附件类
+        public static jmail.Attachment att;//定义单附件类
         public static string strsever;
         public static string smtpserver;
         public static string user;
@@ -36,8 +36,7 @@ namespace MyEmail
         public static string strBody;
         public static string strDate;
         public static string strAttachment;
-        public static string[] htmlbody;
-        public static string strhtmlbody;
+      
         public frmMain()
         {
             InitializeComponent();                      
@@ -52,19 +51,18 @@ namespace MyEmail
             {
                 dgvEmailInfo.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-            //smtpserver = "smtp.qq.com";
-            strsever = login.Pop; //"pop.qq.com";//
-            user = login.User; //"dupeng1160058696@qq.com";//
-            pwd = login.Password; //"hust2012--DP";//
+            strsever = login.Pop; 
+            user = login.User;
+            pwd = login.Password;
             popMail = new jmail.POP3Class();
             try
             {
-                popMail.Connect(user, pwd, strsever, 110);
+                popMail.Connect(user, pwd, strsever, 110);//通过jmail提供的方法直接连接服务器获取邮件
                 TLabUser.Text = user;
                 TLabNum.Text = popMail.Count + "封";
                 if (popMail.Count != 0)
                 {
-                    dgvEmailInfo.RowCount = popMail.Count;
+                    dgvEmailInfo.RowCount = popMail.Count;//显示与邮件封数相同的行数
                                       
                     if (popMail != null)
                     {
@@ -72,20 +70,18 @@ namespace MyEmail
                         {
                             for (int i = 1; i < popMail.Count+1; i++)
                             {
-                                mailMessage = popMail.Messages[i];
+                                mailMessage = popMail.Messages[i];//获取某一封邮件
                                 transCode1(ref MailSubject,  mailMessage);
                                 mailMessage.Charset = "GB18030";
                                 mailMessage.Encoding = "Base64";
                                 mailMessage.ISOEncodeHeaders = false;
-                                string priority = mailMessage.Priority.ToString();
-                                dgvEmailInfo.Rows[i - 1].Cells[0].Value = mailMessage.From;                               
-                                dgvEmailInfo.Rows[i - 1].Cells[1].Value = MailSubject ;
-                                //dgvEmailInfo.Rows[i - 1].Cells[2].Value = mailMessage.Body;
-                                //htmlbody[i-1] = mailMessage.HTMLBody;
-                                dgvEmailInfo.Rows[i - 1].Cells[3].Value = mailMessage.Date;
+                                string priority = mailMessage.Priority.ToString();//邮件编码等设置
+                                dgvEmailInfo.Rows[i - 1].Cells[0].Value = mailMessage.From; //将发信人填到第一格                              
+                                dgvEmailInfo.Rows[i - 1].Cells[1].Value = MailSubject ;//将主题填到第二格                         
+                                dgvEmailInfo.Rows[i - 1].Cells[3].Value = mailMessage.Date;//将时间填到第四格
                                 if ((popMail.Count >= 1) && (i <= popMail.Count))
                                 {
-                                    atts = mailMessage.Attachments;
+                                    atts = mailMessage.Attachments;//实例化邮件附件
                                     if (atts.Count > 0)
                                     {
                                         dgvEmailInfo.Rows[i - 1].Cells[2].Value = "附件下载";
@@ -96,7 +92,7 @@ namespace MyEmail
                                     }
 
                                 }
-                                dgvEmailInfo.Rows[0].Selected = false;
+                                dgvEmailInfo.Rows[0].Selected = false;//信息填充好后清除第一行被选中的状态
                             }
                         }
                     }
@@ -116,7 +112,6 @@ namespace MyEmail
 
         private void dgvEmailInfo_CellDoubleClick(object sender, DataGridViewCellEventArgs e)//双击相应单元格得到详细邮件信息
         {
-            //string[] MailAtts=new string[]{};
             try
             {
                 strFrom = strSubject = strDate = strAttachment = string.Empty;
@@ -128,21 +123,10 @@ namespace MyEmail
                 else
                 {
                     strSubject = dgvEmailInfo.Rows[e.RowIndex].Cells[1].Value.ToString();
-                }
-
-                /* if (dgvEmailInfo.Rows[e.RowIndex].Cells[2].Value == null)
-                 {
-                     strBody = null;
-                 }
-                 else
-                 {
-                     strBody = dgvEmailInfo.Rows[e.RowIndex].Cells[2].Value.ToString();
-                 }*/
-                //strhtmlbody = htmlbody[e.RowIndex];
+                }              
                 strDate = dgvEmailInfo.Rows[e.RowIndex].Cells[3].Value.ToString();
                 mailMessage = popMail.Messages[e.RowIndex + 1];
                 atts = mailMessage.Attachments;
-                //transCode2(ref MailAtts, mailMessage);
                 for (int k = 0; k < atts.Count; k++)
                 {
                     att = atts[k];
@@ -152,7 +136,7 @@ namespace MyEmail
                     }
                     else
                     {
-                        strAttachment += ";" + att.Name;
+                        strAttachment += ";" + att.Name;//得到所有的附件名并以逗号隔开
                     }
                 }
                 frmEmailInfo frmemailinfo = new frmEmailInfo();
@@ -164,12 +148,12 @@ namespace MyEmail
             }
             
         }
-
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)//发送邮件
+        private void sendmailtoolStripMenuItem1_Click(object sender, EventArgs e)
         {
             sendmail send = new sendmail();
-            send.Show();            
+            send.Show();   
         }
+        
 
         private void dgvEmailInfo_CellClick(object sender, DataGridViewCellEventArgs e)//下载附件
         {
@@ -185,13 +169,11 @@ namespace MyEmail
                         {
                             att = atts[k];
                             string attname = att.Name;
-                            saveFileDialog.FileName = attname;
+                            saveFileDialog.FileName = attname;//令对话框的初始路径包含文件名
                             if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                            {
-                                //Directory.CreateDirectory("AttachFiles\\" + user);
-                                //string mailPath = "AttachFiles\\" + user + "\\" +att.Name;                               
-                                string mailPath = saveFileDialog.FileName.ToString();
-                                att.SaveToFile(mailPath);
+                            {                                                  
+                                string mailPath = saveFileDialog.FileName.ToString();//获取对话框中选好的路径
+                                att.SaveToFile(mailPath);//将附件存储到相应路径
                                 MessageBox.Show("下载成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }                        
@@ -205,7 +187,7 @@ namespace MyEmail
         }
     
         public static int index;
-        private void dgvEmailInfo_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)//得到当前鼠标双击选中的索引
+        private void dgvEmailInfo_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)//得到当前鼠标单击单元格的索引
         {
             index = e.RowIndex;
         }
@@ -401,9 +383,7 @@ namespace MyEmail
                         if (dgvEmailInfo.Rows[i].Cells[j].Value != null)
                         {
                             if (dgvEmailInfo.Rows[i].Cells[j].Value.ToString().IndexOf(searchmail.Text) != -1)
-                            {
-                                //对比TexBox中的值是否与dataGridView中的值相同（上面这句） 
-                                //dgvEmailInfo.CurrentCell = dgvEmailInfo[j,i];//定位到相同的单元格 
+                            {                               
                                 dgvEmailInfo.Rows[i].Selected = true;//定位到行 
                                 break;
                             }
@@ -455,40 +435,27 @@ namespace MyEmail
             }
 
         }
-        
-        private void 草稿箱ToolStripMenuItem_Click(object sender, EventArgs e)
-        {                     
-            /*DBConnect();
-           SqlDataAdapter da = new SqlDataAdapter("select 收件人,主题,时间 from draft", sqlCon);//("select username as 用户名," + "password as 密码,realname as 真实姓名 from emailuser", sqlCon);
-            DataSet ds = new DataSet();
-            da.Fill(ds, "tablename");
-            draft dt = new draft();
-            dt.dataGridView1.DataSource   = ds.Tables["tablename"];
-            dt.Show();
-            listBox1.Items.Add(ds.Tables["tablename"].Rows[1]["password"].ToString());
-            dataGridView1.Rows[0 ].Cells[0].Value = ds.Tables["tablename"].Rows[0]["username"].ToString();
-            dataGridView1.Rows[0].Cells[1].Value = ds.Tables["tablename"].Rows[0]["password"].ToString();
-            dataGridView1.Rows[0].Cells[2].Value = ds.Tables["tablename"].Rows[0]["realname"].ToString();*/
-            draft dt = new draft();
-            dt.Show();
-        }
-
-        private void 草稿箱ToolStripMenuItem1_Click(object sender, EventArgs e)
+             
+        private void draftToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             draft dt = new draft();
             dt.Show();
         }
-
-        private void 发件箱ToolStripMenuItem_Click(object sender, EventArgs e)
+    
+        private void sentToolStripMenuItem_Click(object sender, EventArgs e)
         {
             sent st = new sent();
             st.Show();
         }
 
-        private void 联系人ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void bookToolStripMenuItem_Click(object sender, EventArgs e)
         {
             addressbook ab = new addressbook();
             ab.Show();
         }
+
+        
+
+        
     }
 }

@@ -18,14 +18,14 @@ namespace MyEmail
 {
     public partial class login : Form
     {
-        public static string User;
-        public static string Password;
-        public static string Smtp;
-        public static string Pop;
+        public static string User;//定义全局变量User作为用户名，记录当前用户
+        public static string Password;//定义全局变量Password作为用户密码，记录当前用户密码
+        public static string Smtp;//定义全局变量Smtp用于记录当前用户发送邮件使用的SMTP服务器
+        public static string Pop;//定义全局变量Pop用于记录当前用户接收邮件使用的Pop服务器
         private TcpClient tcpClient;
         private NetworkStream networkStream;
         private StreamReader streamReader;
-        private StreamWriter streamWriter;
+        private StreamWriter streamWriter;//以上是登陆过程中与Pop服务器的连接及数据流读写的定义
 
         string strCon;
         OleDbConnection sqlCon;
@@ -58,7 +58,7 @@ namespace MyEmail
         {
             User = Username.Text;
             Password = txtPwd.Text;
-            if ((Username.Text == "") | (Username.Text.IndexOf("@") == -1) | (Username.Text.IndexOf(".com") == -1))
+            if ((Username.Text == "") | (Username.Text.IndexOf("@") == -1) | (Username.Text.IndexOf(".com") == -1))//当用户名为空或不含@及.com字段时提示用户名格式有误
             {
                 errorProName.SetError(Username, "用户名为空或格式不正确！");
             }
@@ -76,13 +76,10 @@ namespace MyEmail
                 Smtp = smtpsever;
                 Pop = popsever;
 
-
-
                 // 与POP3服务器建立TCP连接
                 // 建立连接后把服务器上的邮件下载到本地
                 // 设置当前界面的光标为等待光标（就是我们看到的一个动的圆形）
                 Cursor.Current = Cursors.WaitCursor;
-
 
                 try
                 {
@@ -139,13 +136,12 @@ namespace MyEmail
                 string pass;
                 if (checkBox1.Checked == true)
                 {
-                    pass = txtPwd.Text;
+                    pass = txtPwd.Text;//当选中记住密码时记录密码
                 }
                 else
                 {
-                    pass = "";
-                }
-                //Sendmail .Show();
+                    pass = "";//当没选中记住密码时记住一个空值
+                }             
                 try
                 {
                     DBConnect();
@@ -163,7 +159,6 @@ namespace MyEmail
                         OleDbCommand cmd = new OleDbCommand("update users set 密码='" + pass + "' where 用户名='" + Username.Text + "'", sqlCon);
                         cmd.ExecuteNonQuery();
                     }
-                    //SqlCommand cmd = new SqlCommand("delete from users where 用户名='" + Username.Text + "'", sqlCon);
                     sqlCon.Close();
                 }
                 catch
@@ -177,7 +172,7 @@ namespace MyEmail
             string str = null;
             try
             {
-                str = streamReader.ReadLine();
+                str = streamReader.ReadLine();//读取数据流信息
                 if (str == null)
                 {
                     
@@ -187,7 +182,7 @@ namespace MyEmail
                   
                     if (str.StartsWith("-ERR"))
                     {
-                        str = null;
+                        str = null;//如果收到的响应为"-ERR"则令str=null
                     }
                 }
             }
@@ -195,9 +190,8 @@ namespace MyEmail
             {
                 
             }
-
             return str;
-            }
+        }
 
         // 检查响应信息
         private bool CheckResponse(string responseString)
@@ -208,7 +202,7 @@ namespace MyEmail
             }
             else
             {
-                if (responseString.StartsWith("+OK"))
+                if (responseString.StartsWith("+OK"))//检查到响应含有"+OK"返回true
                 {
                     return true;
                 }
@@ -259,15 +253,6 @@ namespace MyEmail
                 checkBox1.Checked = false;
             }
         }
-
-       /* private void Username_TextChanged(object sender, EventArgs e)
-        {
-            SqlDataAdapter da2 = new SqlDataAdapter("select 密码 from users where 用户名='"+Username .Text +"'", sqlCon);
-            DataSet ds2 = new DataSet();
-            da2.Fill(ds2, "tablename");
-            txtPwd.Text = ds2.Tables["tablename"].Rows[0].ToString();
-        }*/
-
     }
 }
 
